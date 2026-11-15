@@ -1,0 +1,31 @@
+{
+  "name": "skillpath-pmkvY",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/next.mjs dev",
+    "build": "node scripts/next.mjs build",
+    "start": "node scripts/next.mjs start"
+  },
+  "dependencies": {
+    "@auth/mongodb-adapter": "^3.9.0",
+    "@google/genai": "^1.0.0",
+    "lucide-react": "^0.468.0",
+    "mongodb": "^6.12.0",
+    "next": "^15.1.0",
+    "next-auth": "^5.0.0-beta.25",
+    "pdfjs-dist": "^4.10.38",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.15.0"
+  },
+  "devDependencies": {
+    "@next/swc-wasm-nodejs": "^15.5.29",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}
