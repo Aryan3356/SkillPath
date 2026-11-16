@@ -4,10 +4,9 @@ A student-friendly application for topic 22, Skill Gap Analyzer for PMKVY. It re
 
 ## Student and submission details
 
-- Student name: **Aryan Kataria**; Registration number: **[Add your registration number]**
-- Team members: **[Add team member details or confirm individual project]**
-- GitHub repository: **https://github.com/Aryan3356/SkillPath**
-- Deployment: **[Add Render URL after production signup is verified]**
+- Student name: **Aryan Kataria**
+- GitHub repository: **[https://github.com/Aryan3356/SkillPath]**
+- Deployment: **[https://skillpath-g6bk.onrender.com/]**
 
 ## Technologies
 
@@ -27,4 +26,4 @@ Skill matches are keyword signals, not a measure of proficiency or a hiring pred
 
 The guest workspace can be explored without an account. Guest resume analyses are temporary and are cleared on reload; signed-in analyses are stored in MongoDB. `.env.example` is a template; `.env.local` is the active, private configuration. Set `MONGODB_URI` and a long random `AUTH_SECRET` in `.env.local`, then restart the app. If your network DNS blocks Atlas SRV lookups, set `MONGODB_DNS_SERVERS=1.1.1.1,1.0.0.1` there to use Cloudflare DNS for the Node process. Google sign-in is optional: add `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`, then set `NEXT_PUBLIC_AUTH_ENABLED=true`. For AI-written summaries, add `GEMINI_API_KEY`. Keep secrets server-side; do not prefix them with `NEXT_PUBLIC_`.
 
-For signed-in users, analysis summaries and skill results are also saved to the MongoDB `analyses` collection. PDF resumes uploaded by signed-in users are stored in the `resumes` collection and can be viewed, downloaded, replaced, or deleted from the profile menu. Uploads are limited to 4 MB to fit Vercel's serverless request limit. The application links to the Ministry of Skill Development and Entrepreneurship and Skill India Digital Hub for current PMKVY details. SkillPath is an independent student project, not a government service.
+For signed-in users, analysis summaries and skill results are also saved to the MongoDB `analyses` collection. PDF resumes uploaded by signed-in users are stored in the `resumes` collection and can be viewed, downloaded, replaced, or deleted from the profile menu. Uploads are limited to 4 MB to fit Vercel's serverless request limit. The application includes a curated mapping from role-specific possible skill gaps to PMKVY 4.0 Short-Term Training (STT) routes and relevant Skill India Digital search areas. The mapping is guidance, not an official qualification mapping or confirmation that a course/batch is active; the page links to the PMKVY 4.0 guidelines and SIDH catalogue. `/api/analyze` applies a per-IP in-process limit of 10 requests per minute and rejects request bodies over 150 KB. SkillPath is an independent student project, not a government service.
