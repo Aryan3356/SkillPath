@@ -7,8 +7,34 @@ import { getMongoClientPromise, getMongoDatabaseName } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
 
+const analyzeWindowMs = 60_000;
+const analyzeLimit = 10;
+declare global { var _skillpathAnalyzeLimits: Map<string, { count: number; resetAt: number }> | undefined; }
+
+function isRateLimited(request: Request) {
+  const now = Date.now();
+  const limits = global._skillpathAnalyzeLimits ??= new Map();
+  if (limits.size > 2_000) {
+    for (const [key, value] of limits) if (value.resetAt <= now) limits.delete(key);
+  }
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const address = request.headers.get("x-real-ip")?.trim() || forwarded || "unknown";
+  const entry = limits.get(address);
+  if (!entry || entry.resetAt <= now) {
+    limits.set(address, { count: 1, resetAt: now + analyzeWindowMs });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > analyzeLimit;
+}
+
 export async function POST(request: Request) {
   try {
+    if (isRateLimited(request)) {
+      return NextResponse.json({ error: "Too many analyses. Please wait a minute and try again." }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+    const contentLength = Number(request.headers.get("content-length") || 0);
+    if (contentLength > 150_000) return NextResponse.json({ error: "Resume text is too large to analyze." }, { status: 413 });
     const body = await request.json();
     const text = typeof body.text === "string" ? body.text.slice(0, 24_000) : "";
     const target = roles.find((role) => role.title === body.targetRole);

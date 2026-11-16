@@ -127,6 +127,24 @@ export default function Home() {
     await loadDocuments();
   }
 
+  async function persistProgress(updated: Report) {
+    if (!saved || !session?.user?.email) return;
+    localStorage.setItem("skillpath-analysis-v1", JSON.stringify({ report: updated, fileName, updatedAt: new Date().toISOString(), userEmail: session.user.email } satisfies Stored));
+    try {
+      const response = await fetch("/api/history", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetRole: updated.targetRole,
+          roadmap: updated.roadmap.map((item) => ({ title: item.title, steps: item.steps.map((step) => step.done) })),
+        }),
+      });
+      if (!response.ok) throw new Error();
+    } catch {
+      setError("Your changes are shown here but could not be synced to your account. Please try again.");
+    }
+  }
+
   async function deleteDocument(document: ResumeDocument) {
     if (!window.confirm(`Delete ${document.fileName}? Its saved resume analysis will also be removed.`)) return;
     setDocumentBusyId(document.id);
@@ -154,7 +172,7 @@ export default function Home() {
     if (!hasAnalysis) {
       const updated = { ...initialReport, targetRole: nextRole };
       setReport(updated);
-      if (saved && session?.user?.email) localStorage.setItem("skillpath-analysis-v1", JSON.stringify({ report: updated, fileName, updatedAt: new Date().toISOString(), userEmail: session.user.email ?? undefined } satisfies Stored));
+      void persistProgress(updated);
       return;
     }
     const known = new Set(report.detectedSkills ?? report.matchedSkills);
@@ -168,7 +186,7 @@ export default function Home() {
       createdAt: new Date().toISOString(), source: "SkillPath skill matcher",
     };
     setReport(updated);
-    if (saved && session?.user?.email) localStorage.setItem("skillpath-analysis-v1", JSON.stringify({ report: updated, fileName, updatedAt: new Date().toISOString(), userEmail: session.user.email ?? undefined } satisfies Stored));
+    void persistProgress(updated);
   }
 
   useEffect(() => {
@@ -246,7 +264,7 @@ export default function Home() {
     const done = !item.done;
     const updated = { ...report, roadmap: report.roadmap.map((current, i) => i === index ? { ...current, done, steps: current.steps.map((step) => ({ ...step, done })) } : current) };
     setReport(updated);
-    if (saved && session?.user?.email) localStorage.setItem("skillpath-analysis-v1", JSON.stringify({ report: updated, fileName, updatedAt: new Date().toISOString(), userEmail: session.user.email ?? undefined } satisfies Stored));
+    void persistProgress(updated);
   }
 
   function toggleRoadmapStep(index: number, stepIndex: number) {
@@ -256,7 +274,7 @@ export default function Home() {
       return { ...item, steps, done: steps.every((step) => step.done) };
     }) };
     setReport(updated);
-    if (saved && session?.user?.email) localStorage.setItem("skillpath-analysis-v1", JSON.stringify({ report: updated, fileName, updatedAt: new Date().toISOString(), userEmail: session.user.email ?? undefined } satisfies Stored));
+    void persistProgress(updated);
   }
 
   function resetReport() {

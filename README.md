@@ -4,10 +4,10 @@ A student-friendly application for topic 22, Skill Gap Analyzer for PMKVY. It re
 
 ## Student and submission details
 
-- Student name / registration number: **Add before submission**
-- Team members: **Add names and registration numbers, or write ?Individual project?**
-- GitHub repository: **Add repository URL after publishing**
-- Deployment: **Add deployment URL after publishing**
+- Student name: **Aryan Kataria**; Registration number: **[Add your registration number]**
+- Team members: **[Add team member details or confirm individual project]**
+- GitHub repository: **https://github.com/Aryan3356/SkillPath**
+- Deployment: **[Add Render URL after production signup is verified]**
 
 ## Technologies
 
