@@ -14,11 +14,13 @@ declare global { var _skillpathAnalyzeLimits: Map<string, { count: number; reset
 function isRateLimited(request: Request) {
   const now = Date.now();
   const limits = global._skillpathAnalyzeLimits ??= new Map();
-  if (limits.size > 2_000) {
+  if (limits.size >= 5_000) {
     for (const [key, value] of limits) if (value.resetAt <= now) limits.delete(key);
   }
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  // Use the last forwarded address: callers may prepend untrusted values to X-Forwarded-For.
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",").map((value) => value.trim()).filter(Boolean).at(-1);
   const address = request.headers.get("x-real-ip")?.trim() || forwarded || "unknown";
+  if (limits.size >= 5_000 && !limits.has(address)) return true;
   const entry = limits.get(address);
   if (!entry || entry.resetAt <= now) {
     limits.set(address, { count: 1, resetAt: now + analyzeWindowMs });
@@ -28,14 +30,38 @@ function isRateLimited(request: Request) {
   return entry.count > analyzeLimit;
 }
 
+async function readJsonBody(request: Request, maxBytes: number): Promise<{ body?: unknown; error?: "too-large" | "invalid-json" }> {
+  const reader = request.body?.getReader();
+  if (!reader) return { error: "invalid-json" };
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel();
+      return { error: "too-large" };
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  try { return { body: JSON.parse(new TextDecoder().decode(bytes)) as unknown }; }
+  catch { return { error: "invalid-json" }; }
+}
+
 export async function POST(request: Request) {
   try {
     if (isRateLimited(request)) {
       return NextResponse.json({ error: "Too many analyses. Please wait a minute and try again." }, { status: 429, headers: { "Retry-After": "60" } });
     }
-    const contentLength = Number(request.headers.get("content-length") || 0);
-    if (contentLength > 150_000) return NextResponse.json({ error: "Resume text is too large to analyze." }, { status: 413 });
-    const body = await request.json();
+    const parsed = await readJsonBody(request, 150_000);
+    if (parsed.error === "too-large") return NextResponse.json({ error: "Resume text is too large to analyze." }, { status: 413 });
+    if (parsed.error) return NextResponse.json({ error: "Send a valid JSON request." }, { status: 400 });
+    if (!parsed.body || typeof parsed.body !== "object" || Array.isArray(parsed.body)) return NextResponse.json({ error: "Send a valid JSON request." }, { status: 400 });
+    const body = parsed.body as { text?: unknown; targetRole?: unknown };
     const text = typeof body.text === "string" ? body.text.slice(0, 24_000) : "";
     const target = roles.find((role) => role.title === body.targetRole);
     if (!text.trim() || !target) return NextResponse.json({ error: "Add resume text and choose a role to continue." }, { status: 400 });

@@ -7,40 +7,40 @@ export const pmkvySources = {
 } as const;
 
 export const pmkvyProgramMap = {
-  "HTML & CSS": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Web design and development", eligibleFor: "learners building or upgrading role skills" },
-  JavaScript: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  React: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  "Next.js": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  "Node.js": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  "REST APIs": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  SQL: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data and database skills", eligibleFor: "learners building or upgrading role skills" },
-  "Git & GitHub": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  TypeScript: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Development (coding)", eligibleFor: "learners building or upgrading role skills" },
-  "Responsive Design": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Web design and development", eligibleFor: "learners building or upgrading role skills" },
-  Accessibility: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Web design and development", eligibleFor: "learners building or upgrading role skills" },
-  Python: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data Science and programming", eligibleFor: "learners building or upgrading role skills" },
-  Excel: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data analytics", eligibleFor: "learners building or upgrading role skills" },
-  "Power BI": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data analytics and visualization", eligibleFor: "learners building or upgrading role skills" },
-  Statistics: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data analytics", eligibleFor: "learners building or upgrading role skills" },
-  "Data Cleaning": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data analytics", eligibleFor: "learners building or upgrading role skills" },
-  "Data Visualization": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Data analytics and visualization", eligibleFor: "learners building or upgrading role skills" },
-  "Data Structures & Algorithms": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Software development", eligibleFor: "learners building or upgrading role skills" },
-  Java: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Software development", eligibleFor: "learners building or upgrading role skills" },
-  "Object-oriented Programming": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Software development", eligibleFor: "learners building or upgrading role skills" },
-  Testing: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "Software testing and quality", eligibleFor: "learners building or upgrading role skills" },
-  Figma: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "UI/UX design", eligibleFor: "learners building or upgrading role skills" },
-  Wireframing: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "UI/UX design", eligibleFor: "learners building or upgrading role skills" },
-  Prototyping: { program: "PMKVY 4.0 Short-Term Training (STT)", area: "UI/UX design", eligibleFor: "learners building or upgrading role skills" },
-  "User Research": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "UI/UX design", eligibleFor: "learners building or upgrading role skills" },
-  "Visual Design": { program: "PMKVY 4.0 Short-Term Training (STT)", area: "UI/UX design", eligibleFor: "learners building or upgrading role skills" },
-} satisfies Record<string, { program: string; area: string; eligibleFor: string }>;
+  "HTML & CSS": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Web design and development", audience: "learners building or upgrading role skills" },
+  JavaScript: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  React: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  "Next.js": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  "Node.js": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  "REST APIs": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  SQL: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data and database skills", audience: "learners building or upgrading role skills" },
+  "Git & GitHub": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  TypeScript: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Development (coding)", audience: "learners building or upgrading role skills" },
+  "Responsive Design": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Web design and development", audience: "learners building or upgrading role skills" },
+  Accessibility: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Web design and development", audience: "learners building or upgrading role skills" },
+  Python: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data Science and programming", audience: "learners building or upgrading role skills" },
+  Excel: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data analytics", audience: "learners building or upgrading role skills" },
+  "Power BI": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data analytics and visualization", audience: "learners building or upgrading role skills" },
+  Statistics: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data analytics", audience: "learners building or upgrading role skills" },
+  "Data Cleaning": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data analytics", audience: "learners building or upgrading role skills" },
+  "Data Visualization": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Data analytics and visualization", audience: "learners building or upgrading role skills" },
+  "Data Structures & Algorithms": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Software development", audience: "learners building or upgrading role skills" },
+  Java: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Software development", audience: "learners building or upgrading role skills" },
+  "Object-oriented Programming": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Software development", audience: "learners building or upgrading role skills" },
+  Testing: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "Software testing and quality", audience: "learners building or upgrading role skills" },
+  Figma: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "UI/UX design", audience: "learners building or upgrading role skills" },
+  Wireframing: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "UI/UX design", audience: "learners building or upgrading role skills" },
+  Prototyping: { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "UI/UX design", audience: "learners building or upgrading role skills" },
+  "User Research": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "UI/UX design", audience: "learners building or upgrading role skills" },
+  "Visual Design": { route: "PMKVY 4.0 Short-Term Training (STT)", searchArea: "UI/UX design", audience: "learners building or upgrading role skills" },
+} satisfies Record<string, { route: string; searchArea: string; audience: string }>;
 
 export type PMKVYRecommendation = {
   skill: string;
   occupation: string;
-  program: string;
-  area: string;
-  eligibleFor: string;
+  route: string;
+  searchArea: string;
+  audience: string;
 };
 
 export function getPMKVYRecommendations(occupation: string, missingSkills: string[]): PMKVYRecommendation[] {
